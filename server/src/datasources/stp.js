@@ -19,8 +19,8 @@ class StpAPI extends RESTDataSource {
         return this.convertBusinessDTO(response);
     }
 
-    convertBusinessDTO(business) {
-        const {data} = business;
+    convertBusinessDTO(response) {
+        const {data} = response;
         return {
             id: data.attributes.globalId,
             type: data.type,
@@ -28,14 +28,14 @@ class StpAPI extends RESTDataSource {
         }
     }
 
-    async getPayruns({startDate, endDate}) {
+    async getPayruns({businessId, startDate, endDate}) {
         const response = await this.get(`businesses/${businessId}/payruns?startDate=${startDate}&endDate=${endDate}`)
             .catch(error => console.log(error));
 
-        return this.convertPayrunsResponse(response);
+        return this.convertPayrunsDTO(response);
     }
 
-    convertPayrunsResponse(response) {
+    convertPayrunsDTO(response) {
         const {data} = response;
 
         return {

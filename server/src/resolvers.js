@@ -14,7 +14,7 @@ module.exports = {
             });
             return {
                 cursor: launches.length ? launches[launches.length - 1].cursor : null,
-                hasMore: launches.length 
+                hasMore: launches.length
                     ? launches[launches.length - 1].cursor !==
                       allLaunches[allLaunches.length - 1].cursor
                     : false,
@@ -33,8 +33,13 @@ module.exports = {
         business: (parent, args, ctx, info) => {
             const {businessId} = args;
             const {dataSources} = ctx;
-            console.log(ctx);
             return dataSources.stpAPI.getBusinessById({businessId});
+        },
+        payruns: (parent, args, ctx, info) => {
+            const {businessId, startDate, endDate} = args;
+            const {dataSources} = ctx;
+
+            return dataSources.stpAPI.getPayruns({businessId, startDate, endDate});
         }
     },
     Mutation: {
@@ -51,7 +56,7 @@ module.exports = {
             const launches = await dataSources.launchAPI.getLaunchesByIds({
                 launchIds,
             });
-        
+
             return {
                 success: results && results.length === launchIds.length,
                 message:
@@ -67,13 +72,13 @@ module.exports = {
             const { launchIds } = args;
             const { dataSources } = ctx;
             const result = await dataSources.userAPI.cancelTrip({ launchId });
-        
+
             if (!result)
                 return {
                 success: false,
                 message: 'failed to cancel trip',
                 };
-        
+
             const launch = await dataSources.launchAPI.getLaunchById({ launchId });
             return {
                 success: true,
@@ -101,7 +106,7 @@ module.exports = {
         trips: async (parent, args, ctx, info) => {
             const { dataSources } = ctx;
             const launchIds = await dataSources.userAPI.getLaunchIdsByUser();
-            
+
             if(!launchIds.length) return [];
 
             return (dataSources.launchAPI.getLaunchesByIds({ launchIds }) || [] );
