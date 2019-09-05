@@ -1,0 +1,12 @@
+# dependencies
+/server/node_modules
+/server/.pnp
+.pnp.js
+
+# testing
+/server/coverage
+
+# production
+/server/build
+
+/server/package-lock.json
