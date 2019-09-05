@@ -65,7 +65,7 @@ module.exports.createStore = () => {
     userId: SQL.INTEGER,
   });
 
-  const headers = undefined;
+  let headers = undefined;
 
   return { users, trips, headers };
 };

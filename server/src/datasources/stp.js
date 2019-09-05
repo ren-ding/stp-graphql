@@ -2,17 +2,18 @@ const {RESTDataSource} = require('apollo-datasource-rest');
 
 class StpAPI extends RESTDataSource {
     
-    constructor({store}) {
+    constructor() {
         super();
         this.baseURL = 'https://stp.payroll.dev.myob.com/';
-        this.headers = store.headers;
     }
 
     willSendRequest(request) {
-      request.headers.set('Content-Type', this.headers['content-type']);
-      request.headers.set('Authorization', this.headers.authorization);
-      request.headers.set('x-myobapi-source', this.headers['x-myobapi-source']);
-      request.headers.set('x-myobapi-resourceid', this.headers['x-myobapi-resourceid']);
+      const headers = this.context.headers;
+      console.log(headers);
+      request.headers.set('Content-Type', headers['content-type']);
+      request.headers.set('Authorization', headers.authorization);
+      request.headers.set('x-myobapi-source', headers['x-myobapi-source']);
+      request.headers.set('x-myobapi-resourceid', headers['x-myobapi-resourceid']);
     }
 
     async getBusinessById({businessId}) {
