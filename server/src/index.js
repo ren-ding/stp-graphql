@@ -6,6 +6,7 @@ const isEmail = require('isemail');
 
 const LaunchAPI = require('./datasources/launch');
 const UserAPI = require('./datasources/user');
+const StpAPI = require('./datasources/stp');
 
 const store = createStore();
 
@@ -26,6 +27,7 @@ const server = new ApolloServer({
     resolvers,
     dataSources: () => ({
         launchAPI: new LaunchAPI(),
+        stpAPI: new StpAPI(),
         userAPI: new UserAPI({store})
     })
 });

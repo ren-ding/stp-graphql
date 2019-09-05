@@ -7,6 +7,13 @@ const typeDefs = gql`
         ): LaunchConnection!
         launch(id: ID!): Launch
         me: User
+        business(businessId: String!): Business!
+    }
+
+    type Business {
+        id: ID!
+        type: String!
+        abn: String!
     }
 
     type LaunchConnection {

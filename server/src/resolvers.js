@@ -29,6 +29,12 @@ module.exports = {
         me: async (parent, args, ctx, info) => {
             const { dataSources } = ctx;
             dataSources.userAPI.findOrCreateUser()
+        },
+        business: (parent, args, ctx, info) => {
+            const {businessId} = args;
+            const {dataSources} = ctx;
+            console.log(ctx);
+            return dataSources.stpAPI.getBusinessById({businessId});
         }
     },
     Mutation: {
