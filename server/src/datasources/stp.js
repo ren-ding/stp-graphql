@@ -14,17 +14,35 @@ class StpAPI extends RESTDataSource {
     }
 
     async getBusinessById({businessId}) {
-        const response = await this.get(`businesses/${businessId}`);
+        const response = await this.get(`businesses/${businessId}`)
+                                  .catch(error => console.log(error));
         return this.convertBusinessDTO(response);
     }
 
     convertBusinessDTO(business) {
-        const {data} = business; 
+        const {data} = business;
         return {
             id: data.attributes.globalId,
             type: data.type,
-            abn: data.attributes.abn            
+            abn: data.attributes.abn
         }
+    }
+
+    async getPayruns({startDate, endDate}) {
+        const response = await this.get(`businesses/${businessId}/payruns?startDate=${startDate}&endDate=${endDate}`)
+            .catch(error => console.log(error));
+
+        return this.convertPayrunsResponse(response);
+    }
+
+    convertPayrunsResponse(response) {
+        const {data} = response;
+
+        return {
+          id: data.id,
+          type: data.type,
+          submissionLogs: data.attributes.submissionLogs  // submission logs array
+        };
     }
 }
 
