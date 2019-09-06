@@ -2,17 +2,23 @@ const { paginateResults } = require('./utils');
 
 module.exports = {
     Query: {
-        business: (parent, args, ctx, info) => {
+        business: async (parent, args, ctx, info) => {
             const {businessId} = args;
             const {dataSources} = ctx;
             return dataSources.stpAPI.getBusinessById({businessId});
         },
-        payruns: (parent, args, ctx, info) => {
+        payruns: async (parent, args, ctx, info) => {
             const {businessId, startDate, endDate} = args;
             const {dataSources} = ctx;
-            console.log(ctx);
-
             return dataSources.stpAPI.getPayruns({businessId, startDate, endDate});
+        }
+    },
+    Mutation: {
+        payevent: async (parent, args, ctx, info) => {
+            const {payEvent} = args;
+            const {dataSources} = ctx;
+            
+            return dataSources.stpAPI.postPayevent({message: payEvent});
         }
     }
 };

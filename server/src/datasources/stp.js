@@ -9,7 +9,6 @@ class StpAPI extends RESTDataSource {
 
     willSendRequest(request) {
       const headers = this.context.headers;
-      console.log(headers);
       request.headers.set('Content-Type', headers['content-type']);
       request.headers.set('Authorization', headers.authorization);
       request.headers.set('x-myobapi-source', headers['x-myobapi-source']);
@@ -46,6 +45,15 @@ class StpAPI extends RESTDataSource {
           type: data.type,
           submissionLogs: data.attributes.submissionLogs  // submission logs array
         };
+    }
+
+    async postPayEvent({message}) {
+        const response = await this.post(`payevent`, {message}).catch(error => {return {status: "400"}});
+
+        return {
+            payrunId: response.message.payrunId,
+            status: "201"
+        }
     }
 }
 
