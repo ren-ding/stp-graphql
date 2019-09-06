@@ -5,6 +5,7 @@ const typeDefs = gql`
         listPayruns(businessId: String!, startDate: String!, endDate: String!): ListPayruns!
         getPayrun(businessId: String!, payrunId: String!): PayrunDetail!
         getUser(businessId: String!): UserDetail!
+        listEmployees2(businessId: String!, year: Int!): ListEmployees2!
     }
 
     type Business {
@@ -35,7 +36,7 @@ const typeDefs = gql`
     }
 
     type PayrunDetail {
-        id: String!
+        id: ID!
         type: String!
         status: String!
         payOnDate: String!
@@ -47,12 +48,33 @@ const typeDefs = gql`
     }
 
     type UserDetail {
-        id: String!
+        id: ID!
         type: String!
         userId: String!
         globalId: String!
         agentAbn: String
         agentNumber: String
+    }
+
+    type ListEmployees2 {
+        id: ID!
+        type: String!
+        payrunId: String
+        employees: [ListEmployees2Item!]!
+    }
+
+    type ListEmployees2Item {
+        payId: String
+        employeeId: String!
+        firstName: String!
+        lastName: String!
+        terminationDate: String
+        financialYear: Float
+        ytdGrossPay: Float
+        ytdPayg: Float
+        isFinalised: Boolean!
+        rfbAmount: Float
+        s57aRfbAmount: Float
     }
 `;
 

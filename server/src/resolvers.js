@@ -1,5 +1,3 @@
-const { paginateResults } = require('./utils');
-
 module.exports = {
     Query: {
         business: (parent, args, ctx, info) => {
@@ -21,6 +19,11 @@ module.exports = {
             const {businessId} = args;
             const {dataSources} = ctx;
             return dataSources.userAPI.getUser({businessId});
+        },
+        listEmployees2: (parent, args, ctx, info) => {
+            const {businessId, year} = args;
+            const {dataSources} = ctx;
+            return dataSources.employees2API.listEmployees2({businessId, year});
         }
     }
 };

@@ -3,6 +3,7 @@ const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 const StpAPI = require('./datasources/stp');
 const UserAPI = require('./datasources/user');
+const Employees2API = require('./datasources/employees2');
 
 const server = new ApolloServer({
     context: ({ req }) => {
@@ -12,7 +13,8 @@ const server = new ApolloServer({
     resolvers,
     dataSources: () => ({
         stpAPI: new StpAPI(),
-        userAPI: new UserAPI()
+        userAPI: new UserAPI(),
+        employees2API: new Employees2API()
     })
 });
 
