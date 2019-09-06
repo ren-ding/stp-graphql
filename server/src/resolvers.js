@@ -7,12 +7,15 @@ module.exports = {
             const {dataSources} = ctx;
             return dataSources.stpAPI.getBusinessById({businessId});
         },
-        payruns: (parent, args, ctx, info) => {
+        listPayruns: (parent, args, ctx, info) => {
             const {businessId, startDate, endDate} = args;
             const {dataSources} = ctx;
-            console.log(ctx);
-
-            return dataSources.stpAPI.getPayruns({businessId, startDate, endDate});
+            return dataSources.stpAPI.listPayruns({businessId, startDate, endDate});
+        },
+        getPayrun: (parent, args, ctx, info) => {
+            const {businessId, payrunId} = args;
+            const {dataSources} = ctx;
+            return dataSources.stpAPI.getPayrun({businessId, payrunId});
         }
     }
 };

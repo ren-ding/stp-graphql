@@ -2,7 +2,8 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
     type Query {
         business(businessId: String!): Business!
-        payruns(businessId: String!, startDate: String!, endDate: String!): Payruns!
+        listPayruns(businessId: String!, startDate: String!, endDate: String!): ListPayruns!
+        getPayrun(businessId: String!, payrunId: String!): PayrunDetail!
     }
 
     type Business {
@@ -11,13 +12,13 @@ const typeDefs = gql`
         abn: String!
     }
     
-    type Payruns {
+    type ListPayruns {
         id: ID!
         type: String!
-        submissionLogs: [Payrun!]! 
+        submissionLogs: [ListPayrunItem!]! 
     }
     
-    type Payrun {
+    type ListPayrunItem {
         payrunId: String!,
         submissionDate: String!,
         payOnDate: String!,
@@ -30,6 +31,18 @@ const typeDefs = gql`
         declaredBy: String!,
         submissionType: String!,
         status: String!
+    }
+
+    type PayrunDetail {
+        id: String!
+        type: String!
+        status: String!
+        payOnDate: String!
+        startDate: String!
+        endDate: String!
+        declaredBy: String!
+        abnGroup: String
+        eventType: String!
     }
 `;
 
