@@ -16,6 +16,11 @@ module.exports = {
             const {businessId, payrunId} = args;
             const {dataSources} = ctx;
             return dataSources.stpAPI.getPayrun({businessId, payrunId});
+        },
+        getUser: (parent, args, ctx, info) => {
+            const {businessId} = args;
+            const {dataSources} = ctx;
+            return dataSources.userAPI.getUser({businessId});
         }
     }
 };

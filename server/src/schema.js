@@ -4,6 +4,7 @@ const typeDefs = gql`
         business(businessId: String!): Business!
         listPayruns(businessId: String!, startDate: String!, endDate: String!): ListPayruns!
         getPayrun(businessId: String!, payrunId: String!): PayrunDetail!
+        getUser(businessId: String!): UserDetail!
     }
 
     type Business {
@@ -43,6 +44,15 @@ const typeDefs = gql`
         declaredBy: String!
         abnGroup: String
         eventType: String!
+    }
+
+    type UserDetail {
+        id: String!
+        type: String!
+        userId: String!
+        globalId: String!
+        agentAbn: String
+        agentNumber: String
     }
 `;
 
