@@ -30,14 +30,21 @@ class StpAPI extends RESTDataSource {
         }
     }
 
-    async getPayruns({businessId, startDate, endDate}) {
+    async listPayruns({businessId, startDate, endDate}) {
         const response = await this.get(`businesses/${businessId}/payruns?startDate=${startDate}&endDate=${endDate}`)
             .catch(error => console.log(error));
 
-        return this.convertPayrunsDTO(response);
+        return this.convertListPayrunsItemDTO(response);
     }
 
-    convertPayrunsDTO(response) {
+    async getPayrun({businessId, payrunId}) {
+      const response = await this.get(`businesses/${businessId}/payruns/${payrunId}`)
+          .catch(error => console.log(error));
+
+      return this.convertPayrunDetailDTO(response);
+  }
+
+    convertListPayrunsItemDTO(response) {
         const {data} = response;
 
         return {
@@ -55,6 +62,23 @@ class StpAPI extends RESTDataSource {
             status: "201"
         }
     }
+    convertPayrunDetailDTO(response) {
+      const {data} = response;
+
+      console.info(response);
+
+      return {
+        id: data.id,
+        type: data.type,
+        status: data.attributes.status,
+        payOnDate: data.attributes.payOnDate,
+        startDate: data.attributes.startDate,
+        endDate: data.attributes.endDate,
+        declaredBy: data.attributes.declaredBy,
+        abnGroup: data.attributes.abnGroup,
+        eventType: data.attributes.eventType,
+      };
+  }
 }
 
 module.exports = StpAPI;

@@ -1,5 +1,3 @@
-const { paginateResults } = require('./utils');
-
 module.exports = {
     Query: {
         business: async (parent, args, ctx, info) => {
@@ -7,10 +5,25 @@ module.exports = {
             const {dataSources} = ctx;
             return dataSources.stpAPI.getBusinessById({businessId});
         },
-        payruns: async (parent, args, ctx, info) => {
+        listPayruns: (parent, args, ctx, info) => {
             const {businessId, startDate, endDate} = args;
             const {dataSources} = ctx;
-            return dataSources.stpAPI.getPayruns({businessId, startDate, endDate});
+            return dataSources.stpAPI.listPayruns({businessId, startDate, endDate});
+        },
+        getPayrun: (parent, args, ctx, info) => {
+            const {businessId, payrunId} = args;
+            const {dataSources} = ctx;
+            return dataSources.stpAPI.getPayrun({businessId, payrunId});
+        },
+        getUser: (parent, args, ctx, info) => {
+            const {businessId} = args;
+            const {dataSources} = ctx;
+            return dataSources.userAPI.getUser({businessId});
+        },
+        listEmployees2: (parent, args, ctx, info) => {
+            const {businessId, year} = args;
+            const {dataSources} = ctx;
+            return dataSources.employees2API.listEmployees2({businessId, year});
         }
     },
     Mutation: {
