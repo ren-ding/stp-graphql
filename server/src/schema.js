@@ -124,6 +124,8 @@ const typeDefs = gql`
     type PayEventResponse {
         payrunId: String,
         status: String
+    }
+    
     type PayrunDetail {
         id: ID!
         type: String!
