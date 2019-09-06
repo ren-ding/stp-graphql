@@ -40,7 +40,6 @@ class StpAPI extends RESTDataSource {
     async getPayrun({businessId, payrunId}) {
       const response = await this.get(`businesses/${businessId}/payruns/${payrunId}`)
           .catch(error => console.log(error));
-
       return this.convertPayrunDetailDTO(response);
   }
 
@@ -64,8 +63,6 @@ class StpAPI extends RESTDataSource {
     }
     convertPayrunDetailDTO(response) {
       const {data} = response;
-
-      console.info(response);
 
       return {
         id: data.id,

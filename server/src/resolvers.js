@@ -5,10 +5,17 @@ module.exports = {
             const {dataSources} = ctx;
             return dataSources.stpAPI.getBusinessById({businessId});
         },
-        listPayruns: (parent, args, ctx, info) => {
+        listPayruns: async (parent, args, ctx, info) => {
             const {businessId, startDate, endDate} = args;
             const {dataSources} = ctx;
-            return dataSources.stpAPI.listPayruns({businessId, startDate, endDate});
+            const payruns = await dataSources.stpAPI.listPayruns({businessId, startDate, endDate});
+
+            const submissionLogs = payruns.submissionLogs.map( async submission => {
+                const payrun = dataSources.stpAPI.getPayrun({businessId,payrunId: submission.payrunId});
+                return {...submission, payrun: payrun};
+            });
+
+            return {...payruns, submissionLogs: submissionLogs};
         },
         getPayrun: (parent, args, ctx, info) => {
             const {businessId, payrunId} = args;

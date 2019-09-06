@@ -21,7 +21,7 @@ const typeDefs = gql`
     }
     
     type ListPayrunItem {
-        payrunId: String!,
+        payrun: PayrunDetail!,
         submissionDate: String!,
         payOnDate: String!,
         employees: Int,
@@ -125,7 +125,7 @@ const typeDefs = gql`
         payrunId: String,
         status: String
     }
-    
+
     type PayrunDetail {
         id: ID!
         type: String!
